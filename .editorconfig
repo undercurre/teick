@@ -11,7 +11,7 @@ indent_size=4
 tab_width=2
  
 # 设置换行符，值为lf、cr和crlf
-end_of_line=crlf
+end_of_line=lf
  
 # 设置编码格式，值为latin1、utf-8、utf-8-bom、utf-16be和utf-16le
 charset=utf-8
