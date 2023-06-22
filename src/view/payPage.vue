@@ -1,25 +1,32 @@
 <template>
-  <h1>pay</h1>
+  <div class="container">
+    <h2>只需要1元，马上知道你的他是不是渣男</h2>
+    <el-button
+      :plain="true"
+      type="primary"
+      @click="toAnalysis"
+      >支付</el-button
+    >
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.container {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+</style>
 
 <script lang="ts" setup>
-
-import { ElMessage } from 'element-plus';
-import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter()
 
-onMounted(() => {
-  setTimeout(() => {
-    ElMessage({
-      showClose: true,
-      message: '支付成功',
-      type: 'success',
-    })
-    router.push('/analysis')
-  }, 5000);
-})
+function toAnalysis() {
+  router.push('/analysis')
+}
 </script>

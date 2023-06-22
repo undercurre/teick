@@ -1,3 +1,11 @@
+<!--
+ * @Author: undercurre undercurre@163.com
+ * @Date: 2023-06-22 01:25:40
+ * @LastEditors: undercurre undercurre@163.com
+ * @LastEditTime: 2023-06-23 01:12:57
+ * @FilePath: \teick\src\view\testPage.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <template>
   <div class="box">
     <div
@@ -11,11 +19,22 @@
       >
         <div class="question">
           <h3>{{ item.attributes.content }}</h3>
-          <el-radio-group v-model="item.answer">
-            <el-radio :label="1">Option A</el-radio>
-            <el-radio :label="2">Option B</el-radio>
-            <el-radio :label="3">Option C</el-radio>
+          <el-radio-group
+            v-if="item.attributes.selectors.data.length > 0"
+            v-model="item.answer"
+          >
+            <el-radio
+              v-for="selector in item.attributes.selectors.data"
+              :key="selector.id"
+              :label="selector.id.toString()"
+              >{{ selector.attributes.text }}</el-radio
+            >
           </el-radio-group>
+          <el-input
+            v-if="item.attributes.selectors.data.length === 0"
+            v-model="item.answer"
+            placeholder="Please input"
+          />
         </div>
         <div class="btn">
           <el-button
@@ -36,7 +55,7 @@
             v-if="index !== answerStore.answers.length - 1"
             :plain="true"
             type="primary"
-            :disabled="item.answer === '0'"
+            :disabled="item.answer === ''"
             @click="toRight"
             >下一题</el-button
           >
@@ -59,8 +78,10 @@
     width: 100vw;
     min-height: 100vh;
     position: relative;
+    overflow-x: hidden;
 }
 .container {
+    width: 100vw;
     position: absolute;
     left: 0;
     top: 0;
@@ -69,6 +90,7 @@
     transition: transform 0.6s ease;
 }
 .card {
+    z-index: 999;
     width: 100vw;
     min-height: 100vh;
     display: flex;
@@ -98,7 +120,7 @@ onBeforeMount(async () => {
     answerStore.answers = data.map(item => {
         return {
             ...item,
-            answer: '0'
+            answer: ''
         }
     })
 })

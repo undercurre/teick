@@ -1,3 +1,11 @@
+<!--
+ * @Author: undercurre undercurre@163.com
+ * @Date: 2023-06-22 01:25:40
+ * @LastEditors: undercurre undercurre@163.com
+ * @LastEditTime: 2023-06-22 20:54:25
+ * @FilePath: \teick\src\view\managePage.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <template>
   <div class="container">
     <h1>历史记录</h1>
@@ -10,8 +18,8 @@
         <span>测试结果：{{ item.result }}</span>
         <span>完成时间：{{ formatDateTime(item.finishTime.toString()) }}</span>
       </div>
-      <h3 v-if="testStore.tests.length === 0">暂无记录</h3>
     </el-card>
+    <h3 v-if="testStore.tests.length === 0">暂无记录</h3>
     <el-button
       style="margin-top: 60px;"
       :plain="true"
@@ -24,6 +32,7 @@
 
 <style scoped>
 .container {
+  width: 100vw;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
