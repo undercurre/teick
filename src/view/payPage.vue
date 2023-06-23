@@ -23,10 +23,22 @@
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
+import { useAnswerStore } from '../store/answer';
+import { CreateAnswer } from '../api/answer';
+import { createTest } from '../api/test'
+import { getAnalysisResult } from '../config/analysis'
 
 const router = useRouter()
 
-function toAnalysis() {
-  router.push('/analysis')
+const answerStore = useAnswerStore()
+
+async function toAnalysis() {
+  const reqList = answerStore.answers.map(item => CreateAnswer(item.answer, item.id.toString()))
+  const res = await Promise.all(reqList)
+  const answerIds = res.map(item => item.data.id);
+  const createRes = await createTest(getAnalysisResult(answerStore.answers), answerIds)
+  if (createRes.data.id) {
+    router.push('/analysis')
+  }
 }
 </script>

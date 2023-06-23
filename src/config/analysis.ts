@@ -13,17 +13,17 @@ export function getAnalysisResult(answers: Array<QuestionWrapAnswer>) {
   let ansC3235 = 0
 
   answers.forEach((item, index) => {
-    if (index >= 3 && index <= 35 && item.answer === '3') {
+    if (index >= 3 && index <= 35 && item.answer === '10') {
       ansC3235 += 1
     }
 
-    if (index >= 3 && index <= 13 && item.answer === '1') {
+    if (index >= 3 && index <= 13 && item.answer === '8') {
       ansA3213 += 1
-    } else if (index > 13 && index < 25 && item.answer === '1') {
+    } else if (index > 13 && index < 25 && item.answer === '8') {
       ansA14224 += 1
-    } else if (index >= 25 && index <= 31 && item.answer === '1') {
+    } else if (index >= 25 && index <= 31 && item.answer === '8') {
       ansA25231 += 1
-    } else if (index >= 32 && index <= 35 && item.answer === '1') {
+    } else if (index >= 32 && index <= 35 && item.answer === '8') {
       ansA32235 += 1
     }
   })

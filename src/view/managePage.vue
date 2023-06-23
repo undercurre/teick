@@ -2,7 +2,7 @@
  * @Author: undercurre undercurre@163.com
  * @Date: 2023-06-22 01:25:40
  * @LastEditors: undercurre undercurre@163.com
- * @LastEditTime: 2023-06-22 20:54:25
+ * @LastEditTime: 2023-06-23 21:03:46
  * @FilePath: \teick\src\view\managePage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -12,11 +12,13 @@
     <el-card
       class="box-card"
       v-for="item in testStore.tests"
-      :key="item.finishTime"
+      :key="item.attributes.createdAt"
     >
       <div class="card-header">
-        <span>测试结果：{{ item.result }}</span>
-        <span>完成时间：{{ formatDateTime(item.finishTime.toString()) }}</span>
+        <span>测试结果：{{ item.attributes.result }}</span>
+        <span
+          >完成时间：{{ formatDateTime(item.attributes.createdAt.toString()) }}</span
+        >
       </div>
     </el-card>
     <h3 v-if="testStore.tests.length === 0">暂无记录</h3>
@@ -60,8 +62,10 @@
 </style>
 
 <script lang="ts" setup>
+import { onMounted } from 'vue';
 import { useTestStore } from '../store/test'
 import { useRouter } from 'vue-router';
+import { getTest } from '../api/test';
 
 const testStore = useTestStore()
 const router = useRouter()
@@ -81,4 +85,9 @@ function formatDateTime(dateTimeString: string): string {
 function toTest() {
   router.push('/test')
 }
+
+onMounted(async () => {
+  const { data } = await getTest()
+  testStore.tests = data
+})
 </script>

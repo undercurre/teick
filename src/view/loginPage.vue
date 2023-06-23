@@ -1,23 +1,33 @@
 <template>
-  <MaterialInput
-    v-model:value="email"
-    input-key="email"
-    label="邮箱"
-  ></MaterialInput>
-  <MaterialInput
-    class="password"
-    v-model:value="password"
-    input-key="password"
-    label="密码"
-  ></MaterialInput>
-  <el-button
-    type="primary"
-    @click="submit"
-    >登录</el-button
-  >
+  <div class="box">
+    <MaterialInput
+      v-model:value="email"
+      input-key="email"
+      label="邮箱"
+    ></MaterialInput>
+    <MaterialInput
+      class="password"
+      v-model:value="password"
+      input-key="password"
+      label="密码"
+    ></MaterialInput>
+    <el-button
+      type="primary"
+      @click="submit"
+      >登录</el-button
+    >
+  </div>
 </template>
 
 <style scoped>
+.box {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .password {
   margin-top: 60px;
   margin-bottom: 60px;
@@ -43,7 +53,7 @@ async function submit() {
   if (res.jwt) {
     userStore.token = res.jwt
     userStore.userInfo = res.user
-    router.push('/')
+    router.push('/manage')
   }
 }
 </script>

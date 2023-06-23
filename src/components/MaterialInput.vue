@@ -30,6 +30,8 @@ input {
   box-sizing: border-box;
   border: none;
   font-weight: bold;
+  background-color: #fff;
+  color: #000;
 }
 
 input:focus,

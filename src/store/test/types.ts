@@ -1,10 +1,5 @@
 import { QuestionWrapAnswer } from './../answer/types'
-
-interface Test {
-  answers: Array<QuestionWrapAnswer>
-  finishTime: Date
-  result: string
-}
+import { Test } from '../../api/test'
 
 export interface RootState {
   tests: Array<Test>

@@ -1,3 +1,11 @@
+/*
+ * @Author: undercurre undercurre@163.com
+ * @Date: 2023-06-22 01:25:40
+ * @LastEditors: undercurre undercurre@163.com
+ * @LastEditTime: 2023-06-23 18:06:42
+ * @FilePath: \teick\src\router\index.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import { useUserStore } from '../store/user'
 
@@ -64,18 +72,18 @@ const router = createRouter({
 })
 
 // 路由守卫
-// router.beforeEach(async (to, from, next) => {
-//   // 检查是否需要进行 token 检验
-//   if (to.path === '/login') {
-//     // 如果目标路由是登录页，直接继续导航
-//     next()
-//   } else if (!useUserStore().token) {
-//     // 如果需要 token 检验但没有 token，则重定向到登录页或其他处理方式
-//     next('/login')
-//   } else {
-//     // 继续导航
-//     next()
-//   }
-// })
+router.beforeEach(async (to, from, next) => {
+  // 检查是否需要进行 token 检验
+  if (to.path === '/login') {
+    // 如果目标路由是登录页，直接继续导航
+    next()
+  } else if (!useUserStore().token) {
+    // 如果需要 token 检验但没有 token，则重定向到登录页或其他处理方式
+    next('/login')
+  } else {
+    // 继续导航
+    next()
+  }
+})
 
 export default router

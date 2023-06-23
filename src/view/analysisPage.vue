@@ -2,7 +2,7 @@
  * @Author: undercurre undercurre@163.com
  * @Date: 2023-06-22 01:25:40
  * @LastEditors: undercurre undercurre@163.com
- * @LastEditTime: 2023-06-22 22:00:35
+ * @LastEditTime: 2023-06-23 21:12:18
  * @FilePath: \teick\src\view\analysisPage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -25,7 +25,7 @@
         >
         <el-descriptions-item
           label="Answer"
-          >{{ item.answer }}</el-descriptions-item
+          >{{ formatAnswer(item.answer) }}</el-descriptions-item
         >
       </div>
     </el-descriptions>
@@ -71,23 +71,40 @@ import { useTestStore } from '../store/test'
 import { useRouter } from 'vue-router';
 import { getAnalysisResult } from '../config/analysis'
 import { ElMessage } from 'element-plus';
+import { getTest } from '../api/test';
 
 const answerStore = useAnswerStore()
+const testStore = useTestStore()
 
-onMounted(() => {
+onMounted(async () => {
     ElMessage({
       showClose: true,
       message: '支付成功',
       type: 'success',
     })
-    useTestStore().tests.push({
-        answers: answerStore.answers,
-        finishTime: new Date(),
-        result: getAnalysisResult(answerStore.answers)
-    })
+    const { data } = await getTest()
+    testStore.tests = data
 })
 
 const router = useRouter()
+
+function formatAnswer(answer: string) {
+  const selectorMap: {
+    [key: string]: string
+  } = {
+    '1': '18岁以下',
+    '2': '18-25',
+    '3': '26-30',
+    '4': '31-40',
+    '5': '40岁以上',
+    '6': '男',
+    '7': '女',
+    '8': '是',
+    '9': '否',
+    '10': '未留意'
+  }
+  return selectorMap[answer] || ''
+}
 
 function toTest() {
   router.push('/manage')
